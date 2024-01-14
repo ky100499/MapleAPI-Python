@@ -34,7 +34,19 @@ def basicinfo(name, date=None):
         )
 
 def popularity(name, date=None):
-    pass
+    _ocid = ocid(name)
+    if not _ocid['success']:
+        return _ocid
+    else:
+        date = date if date is not None else utils.datestring()
+        return req.request(
+            '/maplestory/v1/character/popularity',
+            'GET',
+            params={
+                'ocid': _ocid['data'],
+                'date': date,
+            }
+        )
 
 def stat(name, date=None):
     _ocid = ocid(name)
