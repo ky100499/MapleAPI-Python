@@ -3,3 +3,4 @@ activate.sh
 activate.bat
 
 **/__pycache__
+.DS_Store
