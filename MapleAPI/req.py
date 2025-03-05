@@ -15,6 +15,8 @@ def request(url, method, headers=None, params=None):
         else dict(**__BASE_HEADERS)
     )
     params = params if params is not None else {}
+    if 'date' in params and params['date'] is None:
+        del params['date']
 
     if method.upper() == 'GET':
         res = requests.get(url, headers=headers, params=params)
@@ -25,7 +27,7 @@ def request(url, method, headers=None, params=None):
             'success': False,
             'error_code': 400,
             'error': {
-                'name': "Method Error"
+                'name': "Method Error",
                 'message': "Invalid Request Method",
             },
         }

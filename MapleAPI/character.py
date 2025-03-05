@@ -23,7 +23,6 @@ def basicinfo(name, date=None):
     if not _ocid['success']:
         return _ocid
     else:
-        date = date if date is not None else utils.datestring()
         return req.request(
             '/maplestory/v1/character/basic',
             'GET',
@@ -38,7 +37,6 @@ def popularity(name, date=None):
     if not _ocid['success']:
         return _ocid
     else:
-        date = date if date is not None else utils.datestring()
         return req.request(
             '/maplestory/v1/character/popularity',
             'GET',
@@ -53,12 +51,26 @@ def stat(name, date=None):
     if not _ocid['success']:
         return _ocid
     else:
-        date = date if date is not None else utils.datestring()
         return req.request(
             '/maplestory/v1/character/stat',
             'GET',
             params={
                 'ocid': _ocid['data'],
                 'date': date,
+            }
+        )
+
+def skill(name, date=None):
+    _ocid = ocid(name)
+    if not _ocid['success']:
+        return _ocid
+    else:
+        return req.request(
+            '/maplestory/v1/character/skill',
+            'GET',
+            params={
+                'ocid': _ocid['data'],
+                'date': date,
+                'character_skill_grade': '0',
             }
         )
